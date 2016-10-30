@@ -1,6 +1,12 @@
 @CHARSET "UTF-8";
+
+@font-face{
+	font-family:ubuntu;
+	src: url(fonts/Ubuntu-R.ttf);
+}
 body{
 	background-color:#DDDDFF;
+	font-family:ubuntu;
 }
 nav.navbar{
 	box-shadow:4px 4px 6px #151515;
@@ -13,4 +19,40 @@ ul.navbar-nav > li.active > a{
 	color:#DDFFFF !important;
 	background-color: #353535 !important;
 	border-bottom:2px #AAFF99 dotted;
+}
+
+div#pgContent{
+	min-height:300px;
+	border:1px #050505 dotted;
+	box-shadow:5px 5px 8px #050505;
+}
+button#btnSbmt{
+	margin-top:20px;
+}
+input[type="file"]{
+	background-color: #FFFEF4 !important;
+	width: 420px;
+	border: 1px solid #050505;
+	border-radius: 5px;
+	padding: 3px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom: 3px #050505 dashed;
+	box-shadow: 5px 5px 8px #808080;
+	margin-bottom: 15px;
+}
+img.baseImg{
+	padding:15px;
+	border:2px #5F5F5F dashed;
+	margin:5px;
+	margin-bottom:15px;
+	background-color:#E5E5E5;
+	box-shadow:3px 3px 4px #A0A0A0;
+}
+img.baseImg:hover{
+	margin:2px;
+	margin-bottom:8px;
+	padding:20px;
+	box-shadow:6px 6px 10px #050505;
+	background-color:#FAFA88;
 }

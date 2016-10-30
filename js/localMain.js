@@ -29,6 +29,7 @@ $("document").ready(function(){
 //</SF>
 	/*$("ul.navbar-nav>li>a").css("color","#CDCDCD");*/
 	$("ul.navbar-nav>li>a").click(APP_PHPDOC.ADD_ACTIVE_CLASS);
+	$("#infile").on("change",APP_PHPDOC.FILE_HANDLING);
 });
 
 APP_PHPDOC.ADD_ACTIVE_CLASS = function(){
@@ -39,3 +40,21 @@ APP_PHPDOC.ADD_ACTIVE_CLASS = function(){
 	$("ul.navbar-nav>li").removeClass("active");
 	$(this).parent().addClass("active");
 }
+
+APP_PHPDOC.FILE_HANDLING = function(){
+	console.info("infile chnaged!");
+	var inp = $("#infile");
+	console.log("inp");
+	console.log(inp);
+}
+
+
+
+
+
+
+
+
+
+
+

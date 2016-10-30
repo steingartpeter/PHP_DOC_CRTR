@@ -1,25 +1,4 @@
 <?php
-//<M>
-//×-
-//@-FILENÉV   : PROJECT_NAME - index.php-@
-//@-SZERZŐ    : AX07057-@
-//@-LÉTREHOZVA:  2016 okt. 30-@
-//@-FÜGGŐSÉGEK:
-//×-
-// @-- RQRD_FILE01.php-@
-// @-- RQRD_FILE02.php-@
-// @-- RQRD_FILE03.php-@
-//-@
-//-×
-//-@
-//@-LEÍRÁS    :
-//Ez a PHP kód azt a feladatot látja el, hogy ....
-//@-MÓDOSÍTÁSOK :
-//×-
-// @-- ... -@
-//-×
-//-×
-//</M>	
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,8 +26,8 @@
 					<a class="navbar-brand" href="#">PHP Dokumnetálás</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#"><span class="glyphicon glyphicon-th-large"></span> Kezdőlap </a></li>
-					<li><a href="html/expl.php"><span class="glyphicon glyphicon-info-sign"></span> Leírás</a></li>
+					<li><a href="/PHP_DOC_CRTR/index.php"><span class="glyphicon glyphicon-th-large"></span> Kezdőlap </a></li>
+					<li class="active"><a href="#"><span class="glyphicon glyphicon-info-sign"></span> Leírás</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Regisztrálás</a></li>
@@ -60,23 +39,16 @@
 	<!-- MAIN CONTENT DIV -->
 	<div class="container" id="pgContent">
 		<div class="row">
-			<div class="col-lg-12">
-				<form>
-					<div class="from-group">
-						<h2>Forrás, és célfileok megadása</h2>
-					</div>
-					<div class="from-group">
-						<label for="infile">Forrásfile:</label>
-						<input type="file" id="infile">
-					</div>
-					<div class="from-group">
-						<label for="outfile">Kimeneti file:</label>
-						<input type="file" id="outfile">
-					</div>
-					<div class="from-group">
-						<button type="submit" id="btnSbmt" class="btn btn-info">Dokumetáció elkészítése</button>
-					</div>
-				</form>
+			<div class="col-lg-6">
+				<h3>A lap funkciója</h3>
+				<p>
+					Ez a lap, egy <b>forrásfileból</b> generál HTML dokumentációt.<br>
+					Sok esetben ez a dokumentáció még nem kész, képekkel, ábrákkal ki lehet
+					egészíteni, hogy többet mutasson.
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<img class="baseImg" src="/PHP_DOC_CRTR/img/tstPic01.jpg"/>
 			</div>
 		</div>
 	</div>
