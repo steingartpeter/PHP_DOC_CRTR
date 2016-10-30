@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+body{
+	background-color:#DDDDFF;
+}
+nav.navbar{
+	box-shadow:4px 4px 6px #151515;
+}
+a.navbar-brand{
+	color:#AAAAFF;
+	border-right:1px solid #A9A9A9;
+}
+ul.navbar-nav > li.active > a{
+	color:#DDFFFF !important;
+	background-color: #353535 !important;
+	border-bottom:2px #AAFF99 dotted;
+}
