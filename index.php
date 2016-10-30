@@ -1,25 +1,42 @@
 <?php
 //<M>
 //×-
-//@-FILENÉV   : PROJECT_NAME - index.php-@
+//@-FILENÉV   : PHP_DOC_CRTR - index.php-@
 //@-SZERZŐ    : AX07057-@
 //@-LÉTREHOZVA:  2016 okt. 30-@
 //@-FÜGGŐSÉGEK:
 //×-
-// @-- RQRD_FILE01.php-@
-// @-- RQRD_FILE02.php-@
-// @-- RQRD_FILE03.php-@
+// @-- DOC_GNRTR.php-@
 //-@
 //-×
 //-@
 //@-LEÍRÁS    :
-//Ez a PHP kód azt a feladatot látja el, hogy ....
+// Ez a PHP kód azt a feladatot látja el, hogy a bemeneti fileban megadott fileból egy HTML dokumentációs
+// file-t készít.
 //@-MÓDOSÍTÁSOK :
 //×-
 // @-- ... -@
 //-×
 //-×
 //</M>	
+    include_once($_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/php/DOC_GNRTR.php");
+    if(isset($_POST['infile']) && $_POST['infile']<>''){
+        echo "\$_POST[]:<br><pre>";
+        print_r($_POST);
+        echo "</pre><hr>";
+        $doccer = new PHP_DOCCER();
+        $doccer->createDocs();
+    }else{
+        //<DEBUG>
+        // Itt meggyőződhetünk arról, hogy üres volt a POST tömb.<br>
+        // <code>
+        // echo "NEM VOLT SUBMIT - \$_POST[]:<br><pre>";
+        // print_r($_POST);
+        // echo "</pre><hr>";
+        // </code>
+        //</DEBUG>
+    }
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,17 +78,17 @@
 	<div class="container" id="pgContent">
 		<div class="row">
 			<div class="col-lg-12">
-				<form>
+				<form action="#" method="post">
 					<div class="from-group">
 						<h2>Forrás, és célfileok megadása</h2>
 					</div>
 					<div class="from-group">
 						<label for="infile">Forrásfile:</label>
-						<input type="file" id="infile">
+						<input type="file" id="infile" name="infile">
 					</div>
 					<div class="from-group">
 						<label for="outfile">Kimeneti file:</label>
-						<input type="file" id="outfile">
+						<input type="file" id="outfile" name="outfile">
 					</div>
 					<div class="from-group">
 						<button type="submit" id="btnSbmt" class="btn btn-info">Dokumetáció elkészítése</button>
