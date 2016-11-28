@@ -56,3 +56,38 @@ img.baseImg:hover{
 	box-shadow:6px 6px 10px #050505;
 	background-color:#FAFA88;
 }
+
+div.doc-modul{
+    background-color:#EFEFEF;
+    border:5px dashed #FF2525;
+}
+
+div.doc-subFunc{
+    background-color:#DEDEDE;
+    border:5px dashed #25FF25;
+}
+div.doc-normNote{
+    background-color:#DEDEDE;
+    border:4px dashed #25FF25;
+}
+div.doc-normNote{
+    background-color:#DEDEDE;
+    border:3px dashed #25FF25;
+}
+div.doc-debug{
+    background-color:#CDCDCD;
+    border:2px dashed #2525FF;
+}
+ul.doc-list{
+    font-style:italic;
+    background-color:#FABE00;
+}
+ul.doc-list li{
+    border-bottom:1px dotted #050505;
+}
+
+
+
+
+
+

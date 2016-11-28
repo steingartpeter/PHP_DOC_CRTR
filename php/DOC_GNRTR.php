@@ -49,13 +49,14 @@
             if($if !== ""){
                 $this->inFile = $if;
             }else{
+                echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";
                 $this->inFile = "tstFile.php";
             }
             
             //<nn>
             // Beállítjuk a bemeneti file-t a beérkező vagy be nem érkező
             // paraméter szerint.<br>
-            // Az lapértelmezett érték: tstFile.php.
+            // Az alapértelmezett érték: tstFile.php.
             //</nn>
             if($if !== ""){
                 $this->outFile = $of;
@@ -69,6 +70,7 @@
             //</DEBUG>
         }
         
+        
         public function createDocs(){
         //<SF>
         //
@@ -80,26 +82,73 @@
             $of = fopen($this->stdPathOut.$this->outFile,"w") or 
                 die("<p>A kimenetifile(".$this->stdPathOut.$this->outFile.")megnyitása sikertelen!</p>");
             
+            echo "<pre>";
             while(($sor = fgets($fi,1024)) !== false){
-                if(substr($sor, 0,2) == "//"){
-                    echo "<p>DOC:" .$sor ."</p>";
+                
+                if(substr(trim($sor), 0,2) == "//"){
+                    $resultStr = $this->prepareString($sor);
+                    echo "<p>DOC:" . $resultStr ."</p>";
+                    fwrite($of,$resultStr);
                 }else{
-                    echo "<p>NO-DOC:" .$sor ."</p>";
+                    echo "<p>NO-DOC:" . $sor ."</p>";
                 }
-                fwrite($of,$sor);
+                
             }
+            echo "</pre>";
             fclose($fi);
             fclose($of);
         }
     
+        
+        public function setInfile($inFl){
+        //<SF>
+        // ....
+        //</SF>
+            $this->inFile = $inFl;
+        }
+        
+        public function setOutfile($oFl){
+        //<SF>
+        // ....
+        //</SF>
+            $this->outFile = $oFl;
+        }
+        
+        
         private function prepareString($rwStr){
         //<SF>
         //
         //</SF>
             $respStr = $rwStr;
-            $respStr = str_replace($respStr,'//<M>','<div class="doc-modul">');
-            $respStr = str_replace($respStr,'//</M>','</div>');
-            
+            echo "be: " . $respStr ."<br>";
+            if(strpos('//<M>',$respStr)){
+                $respStr = str_replace('//<M>','<div class="doc-modul">',$respStr);
+            }elseif(strpos('//</M>',$respStr)){
+                $respStr = str_replace('//</M>','</div>',$respStr);
+            }elseif(strpos('//<SF>',$respStr)){
+                $respStr = str_replace('//<SF>','<div class="doc-subFunc">',$respStr);
+            }elseif(strpos('//</SF>',$respStr)){
+                $respStr = str_replace('//</SF>','</div>',$respStr);
+            }elseif(strpos('//<nn>',$respStr)){
+                $respStr = str_replace('//<nn>','<div class="doc-normNote">',$respStr);
+            }elseif(strpos('//</nn>',$respStr)){
+                $respStr = str_replace('//</nn>','</div>',$respStr);
+            }elseif(strpos('//<DEBUG>',$respStr)){
+                $respStr = str_replace('//<DEBUG>','<div class="doc-debug">',$respStr);
+            }elseif(strpos('//</DEBUG>',$respStr)){
+                $respStr = str_replace('//</DEBUG>','</div>',$respStr);
+            }elseif(strpos('//×-',$respStr)){
+                $respStr = str_replace('//×-','<ul class="doc-list">',$respStr);
+            }elseif(strpos('//-×',$respStr)){
+                $respStr = str_replace('//-×','</ul>',$respStr);
+            }elseif(strpos('//@-',$respStr)){
+                $respStr = str_replace('//@-','<li>',$respStr);
+            }elseif(strpos('-@',$respStr)){
+                $respStr = str_replace($respStr,'-@','</li>',$respStr);
+            }else{
+                echo "Semmifelé strps nem működött!<br>";
+            }
+            echo "Ki: " . $respStr . "</hr>";
             return $respStr;
             
         }

@@ -25,6 +25,10 @@
         print_r($_POST);
         echo "</pre><hr>";
         $doccer = new PHP_DOCCER();
+        $doccer->setInfile($_POST['infile']);
+        if(isset($_POST['outfile']) && $_POST['outfile']<>''){
+            $doccer->setOutFile($_POST['outfile']);
+        }
         $doccer->createDocs();
     }else{
         //<DEBUG>
