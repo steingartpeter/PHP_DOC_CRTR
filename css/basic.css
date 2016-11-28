@@ -85,7 +85,10 @@ ul.doc-list{
 ul.doc-list li{
     border-bottom:1px dotted #050505;
 }
-
+div#pgFooter{
+	min-height:35px;
+	padding:20px;
+}
 
 
 

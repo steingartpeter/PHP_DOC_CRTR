@@ -20,6 +20,7 @@
 //-×
 //</M>	
     include_once($_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/php/DOC_GNRTR.php");
+    $content = "";
     if(isset($_POST['infile']) && $_POST['infile']<>''){
         echo "\$_POST[]:<br><pre>";
         print_r($_POST);
@@ -30,6 +31,7 @@
             $doccer->setOutFile($_POST['outfile']);
         }
         $doccer->createDocs();
+        $content = file_get_contents($_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/outputfiles/out.txt");
     }else{
         //<DEBUG>
         // Itt meggyőződhetünk arról, hogy üres volt a POST tömb.<br>
@@ -100,9 +102,21 @@
 				</form>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12">
+			<?php
+				if($content !== ""){
+					echo $content;
+				} 
+			?>
+			</div>
+		</div>
 	</div>
 	<!-- FOOTER DIV -->
 	<div class="container" id="pgFooter">
+		<div class="row">
+		<div class="col-lg-12"><p> Készítette:AX07057 &copy; </p></div>
+		</div>
 	</div>
 </body>
 </html>

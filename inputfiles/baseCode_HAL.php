@@ -10,7 +10,6 @@
 // @-- mySQLHandler.php-@
 // @-- vbScriptGenerator.php-@
 // @-- MSSQLHandler.php-@
-//-@
 //-×
 //-@
 //@-LEÍRÁS    :
@@ -18,6 +17,7 @@
 //Ezen feladatok közé tartozik például az üres lapok generálása, amibe csak az aktuális tartalmakat kell
 //majd beilleszteni.
 //Maga az implementáció egy class-ban törénik. A class neve: HAL_WEB_Base.
+// -@
 //@-MÓDOSÍTÁSOK :
 //×-
 // @-- 2016-07-21
@@ -31,8 +31,10 @@
 //</M>
 	
 	//<DEBUG>
+	//<code>
 	//define("EKR_FILE_PATH","D:/EKAER/ADAT/AKT_EKAER01.txt");
 	//define("EKR_CHROME_UPLOAD_PATH","I:/_Exchange_Insite/EKAER/PHP/TSTXML/");
+	//</code>
 	//</DEBUG>
 	ob_start();
 	define("EKR_CHROME_UPLOAD_PATH","I:/_Exchange_Insite/EKAER/XMLek/");

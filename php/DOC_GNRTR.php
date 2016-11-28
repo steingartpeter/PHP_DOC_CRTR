@@ -78,19 +78,24 @@
             echo "<createDocs() indul...>";
             $fi = fopen($this->stdPathIn.$this->inFile,"r") or 
                 die("<p>A bemeneti file(".$this->stdPathIn.$this->inFile.")megnyitása sikertelen!</p>");
-            
             $of = fopen($this->stdPathOut.$this->outFile,"w") or 
                 die("<p>A kimenetifile(".$this->stdPathOut.$this->outFile.")megnyitása sikertelen!</p>");
-            
             echo "<pre>";
             while(($sor = fgets($fi,1024)) !== false){
-                
                 if(substr(trim($sor), 0,2) == "//"){
                     $resultStr = $this->prepareString($sor);
-                    echo "<p>DOC:" . $resultStr ."</p>";
+                    //<DEBUG>
+                    // A nyers HTML kód kiírásához:<br>
+                    //<code>
+                    // echo "<p>DOC:" . htmlspecialchars($resultStr) ."</p>";
+                    //</code>
+                    //</DEBUG>
+                    
                     fwrite($of,$resultStr);
+                }elseif(substr(trim($sor), 0,2) == "//"){
+                	
                 }else{
-                    echo "<p>NO-DOC:" . $sor ."</p>";
+                    //echo "<p>NO-DOC:" . $sor ."</p>";
                 }
                 
             }
@@ -120,8 +125,43 @@
         //
         //</SF>
             $respStr = $rwStr;
-            echo "be: " . $respStr ."<br>";
-            if(strpos('//<M>',$respStr)){
+            //<DEBUG>
+            // A nyers HTML kód közvetlen vizsgálatához (bemenet):<br>
+            //<code>
+            // echo "<br>be: " . htmlspecialchars($respStr) ."<br>";
+            // echo "<br>STRPOS(: " . htmlspecialchars($respStr) .") = " . (strpos($respStr,'//<M>')) . "<br>";
+            //</code>
+            //</DEBUG>
+            
+            $respStr = str_replace('//<M>','<div class="doc-modul">',$respStr);
+            $respStr = str_replace('//</M>','</div>',$respStr);
+            
+            $respStr = str_replace('//×-','<ul class="doc-list">',$respStr);
+            $respStr = str_replace('//-×','</ul>',$respStr);
+            
+            $respStr = str_replace('//@-','<li>',$respStr);
+            $respStr = str_replace('// @-','<li>',$respStr);
+            
+            $respStr = str_replace('// -@','</li>',$respStr);
+            $respStr = str_replace('//-@','</li>',$respStr);
+            $respStr = str_replace('-@','</li>',$respStr);
+            
+            $respStr = str_replace('//<SF>','<div class="doc-subFunc">',$respStr);
+            $respStr = str_replace('//</SF>','</div>',$respStr);
+            
+            $respStr = str_replace('//<DEBUG>','<div class="doc-debug">',$respStr);
+            $respStr = str_replace(';',';<br/>',$respStr);
+            $respStr = str_replace('//</DEBUG>','</div">',$respStr);
+            
+            
+            
+            
+            $respStr = str_replace('//','',$respStr);
+            
+            
+            
+            /*
+            if(strpos($respStr,'//<M>') >= 0){
                 $respStr = str_replace('//<M>','<div class="doc-modul">',$respStr);
             }elseif(strpos('//</M>',$respStr)){
                 $respStr = str_replace('//</M>','</div>',$respStr);
@@ -144,11 +184,17 @@
             }elseif(strpos('//@-',$respStr)){
                 $respStr = str_replace('//@-','<li>',$respStr);
             }elseif(strpos('-@',$respStr)){
-                $respStr = str_replace($respStr,'-@','</li>',$respStr);
+                $respStr = str_replace('-@','</li>',$respStr);
             }else{
-                echo "Semmifelé strps nem működött!<br>";
-            }
-            echo "Ki: " . $respStr . "</hr>";
+                echo "Semmifelé strpos nem működött!<br>";
+            }*/
+            //<DEBUG>
+            // A nyers HTML kód kiíratásához (kimenet):<br>
+            //<code>
+            // echo "Ki: " . htmlspecialchars($respStr) . "</hr>";
+            //</code>
+            //</DEBUG>
+            
             return $respStr;
             
         }

@@ -1,1 +1,29 @@
-//<M>
+<div class="doc-modul">
+<ul class="doc-list">
+<li>FILENÉV   : PHP_DOC_CRTR - tstFile.php</li>
+<li>SZERZŐ    : AX07057</li>
+<li>LÉTREHOZVA:  2016 okt. 30</li>
+<li>FÜGGŐSÉGEK:
+<ul class="doc-list">
+<li>- nincs függőség</li>
+</ul>
+</li>
+<li>LEÍRÁS    :
+ Ez a PHP kód a PHP_DOCCER teszteléséhez készült.
+<li>MÓDOSÍTÁSOK :
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</li>
+</ul>
+</div>	
+<SF>
+ Egy függvénybevezető szakasz.
+</SF>
+<nn>
+ Egy normál dokumentációs szakasz...
+</nn>
+<div class="doc-debug">
+ Egy debug dokumentációs szakasz...<br>
+ <code>$var = "testVar";<br/></code>
+</div">
