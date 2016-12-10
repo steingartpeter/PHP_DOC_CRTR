@@ -73,7 +73,20 @@
         
         public function createDocs(){
         //<SF>
-        //
+        // 2016-12-10<br>
+        // LEÍRÁS<br>
+        // Ez a függvény afféle főfüggévny. Alapvetően soronként meghívjuk a prepareString() füvényt, és az eredményt
+        // a kimeneti fileba teszük.<br>
+        // Ez gyors, és könnyen érthető, de nem lehet vele beágyazottságot megjeleníteni. Vagyis a kimenetben a 
+        // HTML elemek egymást követik, és nem tudják egymást tartalmazni.
+        // PARAMÉTEREK:
+        //×-
+        // @-- Nincsenek paraméeterek -@
+        //-×
+        //MÓDOSTÁSOK:
+        //×-
+        // @-- ... -@
+        //-×
         //</SF>
             echo "<createDocs() indul...>";
             $fi = fopen($this->stdPathIn.$this->inFile,"r") or 
@@ -107,14 +120,24 @@
         
         public function setInfile($inFl){
         //<SF>
-        // ....
+        // 2016-12-10<br>
+        // LEÍRÁS:<br>
+        // Az osztály infile adatattagjának set-er függvénye.<br>
+        // PARAMÉTEREK:
+        //×-
+        // @-- @param \$inFl = a beolvasandő file neve -@
+        //-×
+        //MÓDOSTÁSOK:
+        //×-
+        // @-- ... -@
+        //-×
         //</SF>
             $this->inFile = $inFl;
         }
         
         public function setOutfile($oFl){
         //<SF>
-        // ....
+        // Az osztály outfile adattagjának set-er függvénye.
         //</SF>
             $this->outFile = $oFl;
         }
@@ -122,7 +145,7 @@
         
         private function prepareString($rwStr){
         //<SF>
-        //
+        // 
         //</SF>
             $respStr = $rwStr;
             //<DEBUG>
