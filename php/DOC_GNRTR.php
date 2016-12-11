@@ -22,12 +22,30 @@
 
     class PHP_DOCCER{
     //<SF>
+    // 2016. dec. 11.<br>
+    // LEÍRÁS<br>
     // Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.
+    //MÓDOSTÁSOK:
+    //×-
+    // @-- ... -@
+    //-×
     //</SF>
+    
+    	//<nn>
+    	// Az osztály adattagjai:
+    	//×-
+    	// @-- $stdPathIn = a beolvasandó file könyvtára -@
+    	// @-- $stdPathOut = a kimeneti file (nyers dokumnetációs HTML) könyvtára -@
+    	// @-- $inFile = a bemeneti filenév -@
+    	// @-- $outFile = a kimeneti filenév -@
+    	//-×
+    	//</nn>
         private $stdPathIn = "";
         private $stdPathOut = "";
         private $inFile = "";
         private $outFile = "";
+        private $funcSzlo = 0;
+        
         
         public function __construct($if="", $of=""){
         //<SF>
@@ -105,13 +123,28 @@
                     //</DEBUG>
                     
                     fwrite($of,$resultStr);
-                }elseif(substr(trim($sor), 0,2) == "//"){
-                	
+                }elseif(substr(trim($sor), 0,15) == "public function" || 
+                	substr(trim($sor), 0,16) == "private function" ||
+                	substr(trim($sor), 0,8) == "function"){
+                	//<nn>
+                	// Itt kiszedhetjük a függvény nevét, és paramétereit... de datlán ezzel nem is kellene
+                	// tökölni, elég lenne, ha egyszerűen 
+                	//</nn>
+                	$kzd = strpos($sor, "tion ") + 5;
+                	$veg = strpos($sor, "){") + 5;
+                	$fnNev = substr($sor,$kzd,(strlen($sor)-$veg-$kzd));
+                	if($this->funcSzlo > 0){
+                		$resultStr = '</div><div class=""><h4>'.$fnNev.'</h4>';
+                	}else{
+                		$resultStr = '<div class=""><h4>'.$fnNev.'</h4>';
+                	}
+                	fwrite($of, $resultStr);
                 }else{
                     //echo "<p>NO-DOC:" . $sor ."</p>";
                 }
                 
             }
+            fwrite($of,"</div>");
             echo "</pre>";
             fclose($fi);
             fclose($of);

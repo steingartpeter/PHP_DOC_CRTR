@@ -17,31 +17,31 @@
 //-×
 //-@
 //-×
-//</M>	
-ez nem DOC sor 001
-private function testzFunNev001(){ 
-//<SF>
-// Egy függvénybevezető szakasz.
-//</SF>
-ez nem DOC sor 001
-ez nem DOC sor 001
-ez nem DOC sor 001
+//</M>
 
-ez nem DOC sor 001
-//<nn>
-// Egy normál dokumentációs szakasz...
-//</nn>
-ez nem DOC sor 001
-ez nem DOC sor 001
-ez nem DOC sor 001
-ez nem DOC sor 001
-//<DEBUG>
-// Egy debug dokumentációs szakasz...<br>
-// <code>$var = "testVar";</code>
-//</DEBUG>
-ez nem DOC sor 001
-ez nem DOC sor 001
-ez nem DOC sor 001
-ez nem DOC sor 001
-}
+	private function testzFunNev001(){ 
+	//<SF>
+	// Egy függvénybevezető szakasz.
+	//</SF>
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		
+		ez nem DOC sor 001
+		//<nn>
+		// Egy normál dokumentációs szakasz...
+		//</nn>
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		//<DEBUG>
+		// Egy debug dokumentációs szakasz...<br>
+		// <code>$var = "testVar";</code>
+		//</DEBUG>
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+		ez nem DOC sor 001
+	}
 ?>
