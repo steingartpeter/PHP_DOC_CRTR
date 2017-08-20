@@ -14,7 +14,9 @@
 // Ez a PHP kód a PHP_DOCCER class implementációját tartalmazza.
 //@-MÓDOSÍTÁSOK :
 //×-
-// @-- ... -@
+// @-- 2017-08-20 <br>
+// Megpróbálok full git supportot behozni az Eclipse-be.
+//-@
 //-×
 //-×
 //</M>	
