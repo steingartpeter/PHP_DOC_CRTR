@@ -90,7 +90,6 @@
             //</DEBUG>
         }
         
-        
         public function createDocs(){
         //<SF>
         // 2016-12-10<br>
@@ -151,8 +150,7 @@
             fclose($fi);
             fclose($of);
         }
-    
-        
+   
         public function setInfile($inFl){
         //<SF>
         // 2016-12-10<br>
@@ -176,8 +174,7 @@
         //</SF>
             $this->outFile = $oFl;
         }
-        
-        
+             
         private function prepareString($rwStr){
         //<SF>
         // 

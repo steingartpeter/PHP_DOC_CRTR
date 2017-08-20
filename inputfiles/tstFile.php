@@ -11,6 +11,7 @@
 //-@
 //@-LEÍRÁS    :
 // Ez a PHP kód a PHP_DOCCER teszteléséhez készült.
+//-@
 //@-MÓDOSÍTÁSOK :
 //×-
 // @-- ... -@
