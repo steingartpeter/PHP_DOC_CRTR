@@ -15,7 +15,7 @@
 // file-t készít.
 //@-MÓDOSÍTÁSOK :
 //×-
-// @-- ... -@
+// @-- GIT integráció Eclipse-be 87O6NEL 2017-08-20 -@
 //-×
 //-×
 //</M>	
