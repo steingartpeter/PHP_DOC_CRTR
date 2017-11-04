@@ -69,7 +69,13 @@
             if($if !== ""){
                 $this->inFile = $if;
             }else{
-                echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";
+                //<DEBUG>
+                // Írassuk ki a figyelmeztetést, hogy nincs INFILE.<br>
+                //<code>
+                // echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";
+                //</code>
+                //</DEBUG>
+            	
                 $this->inFile = "tstFile.php";
             }
             
@@ -107,11 +113,27 @@
         // @-- ... -@
         //-×
         //</SF>
-            echo "<createDocs() indul...>";
-            $fi = fopen($this->stdPathIn.$this->inFile,"r") or 
+            echo "<p>createDocs() indul...</p>";
+            //<nn>
+            // Meg kell nézni, hogy miylen route jött be...
+            //</nn>
+            if(!strpos($this->inFile,"htdocs")){
+            	$fi = fopen($this->stdPathIn.$this->inFile,"r") or 
                 die("<p>A bemeneti file(".$this->stdPathIn.$this->inFile.")megnyitása sikertelen!</p>");
-            $of = fopen($this->stdPathOut.$this->outFile,"w") or 
-                die("<p>A kimenetifile(".$this->stdPathOut.$this->outFile.")megnyitása sikertelen!</p>");
+            }else{
+            	$fnm = strrchr($this->inFile,"\\");
+            	$fi = fopen($this->stdPathIn.$fnm ,"r") or
+            	die("<p>A bemeneti file(".$this->stdPathIn.$fnm.")megnyitása sikertelen!</p>");
+           	}
+           	if(!strpos($this->outFile,"htdocs")){
+           		$of = fopen($this->stdPathOut.$this->outFile,"w") or
+           		die("<p>A kimeneti file(".$this->stdPathOut.$this->outFile.")megnyitása sikertelen!</p>");
+           	}else{
+           		$fnm = strrchr($this->outFile,"\\");
+           		$of = fopen($this->stdPathOut.$fnm,"w") or
+           		die("<p>A kimenetifile(".$this->stdPathOut.$fnm.")megnyitása sikertelen!</p>");
+           	}
+            
             echo "<pre>";
             while(($sor = fgets($fi,1024)) !== false){
                 if(substr(trim($sor), 0,2) == "//"){
@@ -128,16 +150,16 @@
                 	substr(trim($sor), 0,16) == "private function" ||
                 	substr(trim($sor), 0,8) == "function"){
                 	//<nn>
-                	// Itt kiszedhetjük a függvény nevét, és paramétereit... de datlán ezzel nem is kellene
+                	// Itt kiszedhetjük a függvény nevét, és paramétereit... de talán ezzel nem is kellene
                 	// tökölni, elég lenne, ha egyszerűen 
                 	//</nn>
                 	$kzd = strpos($sor, "tion ") + 5;
-                	$veg = strpos($sor, "){") + 5;
-                	$fnNev = substr($sor,$kzd,(strlen($sor)-$veg-$kzd));
+                	$veg = strpos($sor, "){") + 2;
+                	$fnNev = substr($sor,$kzd,($veg-$kzd-1));
                 	if($this->funcSzlo > 0){
-                		$resultStr = '</div><div class=""><h4>'.$fnNev.'</h4>';
+                		$resultStr = '</div><div class="doc-body"><h4>'.$fnNev.'</h4>';
                 	}else{
-                		$resultStr = '<div class=""><h4>'.$fnNev.'</h4>';
+                		$resultStr = '<div class="doc-body"><h4>'.$fnNev.'</h4>';
                 	}
                 	fwrite($of, $resultStr);
                 }else{
@@ -158,13 +180,19 @@
         // Az osztály infile adatattagjának set-er függvénye.<br>
         // PARAMÉTEREK:
         //×-
-        // @-- @param \$inFl = a beolvasandő file neve -@
+        // @-- @param \$inFl = a beolvasandó file neve -@
         //-×
         //MÓDOSTÁSOK:
         //×-
         // @-- ... -@
         //-×
         //</SF>
+            //<DEBUG>
+            // Valami érdekesség van a filenevkkel, írassuk ki előtte, és utána is.<br>
+            //<code>
+            // ...
+            //</code>
+            //</DEBUG>
             $this->inFile = $inFl;
         }
         
@@ -208,7 +236,8 @@
             $respStr = str_replace(';',';<br/>',$respStr);
             $respStr = str_replace('//</DEBUG>','</div">',$respStr);
             
-            
+            $respStr = str_replace('//<nn>','<div class="doc-normNote">',$respStr);
+            $respStr = str_replace('//</nn>','</div>',$respStr);
             
             
             $respStr = str_replace('//','',$respStr);

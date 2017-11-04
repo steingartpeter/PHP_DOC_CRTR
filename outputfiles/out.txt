@@ -10,20 +10,22 @@
 </li>
 <li>LEÍRÁS    :
  Ez a PHP kód a PHP_DOCCER teszteléséhez készült.
+</li>
 <li>MÓDOSÍTÁSOK :
 <ul class="doc-list">
 <li>- ... </li>
 </ul>
 </li>
 </ul>
-</div>	
-<SF>
- Egy függvénybevezető szakasz.
-</SF>
-<nn>
- Egy normál dokumentációs szakasz...
-</nn>
-<div class="doc-debug">
- Egy debug dokumentációs szakasz...<br>
- <code>$var = "testVar";<br/></code>
-</div">
+</div>
+<div class="doc-body"><h4>testzFunNev001()</h4>	<div class="doc-subFunc">
+	 Egy függvénybevezető szakasz.
+	</div>
+		<div class="doc-normNote">
+		 Egy normál dokumentációs szakasz...
+		</div>
+		<div class="doc-debug">
+		 Egy debug dokumentációs szakasz...<br>
+		 <code>$var = "testVar";<br/></code>
+		</div">
+</div>

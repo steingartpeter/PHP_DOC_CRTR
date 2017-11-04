@@ -57,25 +57,67 @@ img.baseImg:hover{
 	background-color:#FAFA88;
 }
 
-div.doc-modul{
-    background-color:#EFEFEF;
-    border:5px dashed #FF2525;
+.footer{
+	text-align:center;
+	border:1px solid #909090;
+	border-radius:24px;
 }
 
+
+
+code{
+	display:block;
+	background:#050505;
+	color:#99FF99;
+}
+
+.doc-body{
+	background-color:#ADADAD;
+	padding:8px;
+	border:3px solid #EFEFEF;
+	border-radius:12px;
+	box-shadow:4px 4px 8px #505050;
+}
+
+.doc-body h4{
+	font-size:22px;
+	font-family:Consolas;
+	font-weight:bold;
+	font-style: italic;
+	background: linear-gradient(to bottom, #f0b7a1 0%,#8c3310 50%,#752201 51%,#bf6e4e 100%); 
+	color:#EAB92D;
+	padding:6px;
+	padding-left:22px;
+}
+
+div.doc-modul{
+	margin-top:6px;
+	margin-bottom:8px;
+    background-color:#EFEFEF;
+    border:5px solid #6E571A;
+    border-radius:8px;
+    box-shadow: 3px 3px 6px #4D3B09;
+    font-weight:bold;
+    font-size:24px;
+}
+
+
 div.doc-subFunc{
+	margin-top:4px;
     background-color:#DEDEDE;
     border:5px dashed #25FF25;
 }
+
 div.doc-normNote{
-    background-color:#DEDEDE;
-    border:4px dashed #25FF25;
-}
-div.doc-normNote{
-    background-color:#DEDEDE;
+	margin-top:4px;
+    background-color:#6699EE;
     border:3px dashed #25FF25;
+    padding:3px;
 }
 div.doc-debug{
-    background-color:#CDCDCD;
+	margin-top:4px;
+	color:#FAFA99;
+    background-color:#454545;
     border:2px dashed #2525FF;
 }
 ul.doc-list{

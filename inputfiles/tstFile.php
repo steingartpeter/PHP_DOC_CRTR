@@ -20,7 +20,7 @@
 //-×
 //</M>
 
-	private function testzFunNev001(){ 
+	private function testzFunNev001(){12345678910 
 	//<SF>
 	// Egy függvénybevezető szakasz.
 	//</SF>

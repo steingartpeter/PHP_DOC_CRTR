@@ -22,15 +22,22 @@
     include_once($_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/php/DOC_GNRTR.php");
     $content = "";
     if(isset($_POST['infile']) && $_POST['infile']<>''){
-        echo "\$_POST[]:<br><pre>";
-        print_r($_POST);
-        echo "</pre><hr>";
+        //<DEBUG>
+        // leírás....<br>
+        //<code>
+        // echo "\$_POST[]:<br><pre>";
+        // print_r($_POST);
+        // echo "</pre><hr>";
+        //</code>
+        //</DEBUG>
+    	
         $doccer = new PHP_DOCCER();
         $doccer->setInfile($_POST['infile']);
         if(isset($_POST['outfile']) && $_POST['outfile']<>''){
             $doccer->setOutFile($_POST['outfile']);
         }
         $doccer->createDocs();
+        //echo ""
         $content = file_get_contents($_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/outputfiles/out.txt");
     }else{
         //<DEBUG>
@@ -115,7 +122,7 @@
 	<!-- FOOTER DIV -->
 	<div class="container" id="pgFooter">
 		<div class="row">
-		<div class="col-lg-12"><p> Készítette:AX07057 &copy; </p></div>
+			<div class="col-lg-12 footer"><p> Készítette: AX07057 &copy; </p></div>
 		</div>
 	</div>
 </body>
