@@ -58,25 +58,41 @@ img.baseImg:hover{
 }
 
 .footer{
+	margin:18px;
 	text-align:center;
 	border:1px solid #909090;
 	border-radius:24px;
+	background: linear-gradient(to bottom, #4C4C4C 0%,#595959 12%,#666666 25%,#474747 39%,#2C2C2C 
+		50%,#000000 51%,#111111 60%,#2B2B2B 76%,#1C1C1C 91%,#131313 100%);
+	color:#CDCDCD;
+	font-style: italic;
 }
 
 
 
 code{
+	margin-left:20px;
 	display:block;
 	background:#050505;
-	color:#99FF99;
+	color:#AAFFAA;
 }
-
+.doc-classNm{
+	border:1px solid #EAEAEA;
+	border-radius:6px;
+	margin:2px;
+	margin-left:6px;
+	padding:15px;
+	background-color:#282828;
+	color:#EAEAEA;
+}
 .doc-body{
 	background-color:#ADADAD;
 	padding:8px;
 	border:3px solid #EFEFEF;
 	border-radius:12px;
 	box-shadow:4px 4px 8px #505050;
+	margin-bottom:30px;
+	
 }
 
 .doc-body h4{
@@ -84,7 +100,7 @@ code{
 	font-family:Consolas;
 	font-weight:bold;
 	font-style: italic;
-	background: linear-gradient(to bottom, #f0b7a1 0%,#8c3310 50%,#752201 51%,#bf6e4e 100%); 
+	background: linear-gradient(to bottom, #F0B7A1 0%,#8C3310 50%,#752201 51%,#BF6E4E 100%); 
 	color:#EAB92D;
 	padding:6px;
 	padding-left:22px;
@@ -94,44 +110,75 @@ div.doc-modul{
 	margin-top:6px;
 	margin-bottom:8px;
     background-color:#EFEFEF;
-    border:5px solid #6E571A;
+    /*border:5px solid #6E571A;*/
     border-radius:8px;
     box-shadow: 3px 3px 6px #4D3B09;
     font-weight:bold;
     font-size:24px;
+    padding:10px;
 }
 
 
 div.doc-subFunc{
 	margin-top:4px;
+	margin-left:5px;
     background-color:#DEDEDE;
-    border:5px dashed #25FF25;
+    /*border:5px dashed #25FF25;*/
+    font-size:18px;
+    font-weight:bold;
+    font-family: "Courier New";
+    padding:6px;
+    padding-left:12px;
+    border:1px dotted #FEFEFE;
+    border-radius:4px;
 }
 
 div.doc-normNote{
 	margin-top:4px;
-    background-color:#6699EE;
-    border:3px dashed #25FF25;
+	margin-left:10px;
+    background-color:#77AAFF;
+    /*border:3px dashed #25FF25;*/
     padding:3px;
+    padding-left:6px;
+    border:1px dotted #66EEEE;
+    border-radius:4px;
 }
 div.doc-debug{
 	margin-top:4px;
+	margin-left:15px;
 	color:#FAFA99;
     background-color:#454545;
     border:2px dashed #2525FF;
+    border-radius:3px;
 }
+
 ul.doc-list{
+	margin-left:20px;
     font-style:italic;
     background-color:#FABE00;
+    margin:8px;
+    box-shadow: 2px 2px 4px #050505;
 }
+
+ul.doc-list:hover{
+    background-color:#E9AD00;
+    margin:8px;
+    box-shadow: 4px 4px 8px #050505;
+}
+
 ul.doc-list li{
     border-bottom:1px dotted #050505;
 }
-div#pgFooter{
+
+/*div#pgFooter{
 	min-height:35px;
 	padding:20px;
+}*/
+.hr-fnc-sep{
+	height:12px;
+	border:4px #050505 solid;
+	background-color:#000;
 }
-
 
 
 

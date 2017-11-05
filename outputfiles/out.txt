@@ -1,6 +1,6 @@
 <div class="doc-modul">
 <ul class="doc-list">
-<li>FILENÉV   : PHP_DOC_CRTR - tstFile.php</li>
+<li>FILENÉV   : PHP_DOC_CRTR - DOC_GNRTR.php</li>
 <li>SZERZŐ    : AX07057</li>
 <li>LÉTREHOZVA:  2016 okt. 30</li>
 <li>FÜGGŐSÉGEK:
@@ -9,23 +9,161 @@
 </ul>
 </li>
 <li>LEÍRÁS    :
- Ez a PHP kód a PHP_DOCCER teszteléséhez készült.
+ Ez a PHP kód a PHP_DOCCER class implementációját tartalmazza.
 </li>
 <li>MÓDOSÍTÁSOK :
 <ul class="doc-list">
-<li>- ... </li>
+<li>- 2017-08-20 <br>
+ Megpróbálok full git supportot behozni az Eclipse-be.
+</li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="doc-body"><h4>testzFunNev001()</h4>	<div class="doc-subFunc">
-	 Egy függvénybevezető szakasz.
-	</div>
-		<div class="doc-normNote">
-		 Egy normál dokumentációs szakasz...
-		</div>
-		<div class="doc-debug">
-		 Egy debug dokumentációs szakasz...<br>
-		 <code>$var = "testVar";<br/></code>
-		</div">
-</div>
+</div>	
+<div class="doc-classNm"><h2> PHP_DOCCER</h2></div>    <div class="doc-subFunc">
+     2016. dec. 11.<br>
+     LEÍRÁS<br>
+     Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.
+    MÓDOSTÁSOK:
+    <ul class="doc-list">
+    <li>- ... </li>
+    </ul>
+    </div>
+    	<div class="doc-normNote">
+    	 Az osztály adattagjai:
+    	<ul class="doc-list">
+    	<li>- $stdPathIn = a beolvasandó file könyvtára </li>
+    	<li>- $stdPathOut = a kimeneti file (nyers dokumnetációs HTML) könyvtára </li>
+    	<li>- $inFile = a bemeneti filenév </li>
+    	<li>- $outFile = a kimeneti filenév </li>
+    	</ul>
+    	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>__construct($if="", $of="")</h4></div>        <div class="doc-subFunc">
+         2016-10-30<br>
+         A konstruktor...
+        </div>
+            <div class="doc-normNote">
+             Az alapértelemezett file mappák elérésének beállítása.
+            </div>
+            <div class="doc-normNote">
+             Beállítjuk a bemeneti file-t a beérkező vagy be nem érkező
+             paraméter szerint.<br>
+             Az lapértelmezett érték: tstFile.php.
+            </div>
+                <div class="doc-debug">
+                 Írassuk ki a figyelmeztetést, hogy nincs INFILE.<br>
+                <code>
+                 echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";<br/>
+                </code>
+                </div>
+            <div class="doc-normNote">
+             Beállítjuk a bemeneti file-t a beérkező vagy be nem érkező
+             paraméter szerint.<br>
+             Az alapértelmezett érték: tstFile.php.
+            </div>
+            <div class="doc-debug">
+             A konstruktor lefutásának jelzése:<br>
+             &lt;code&gt;echo &quot;&lt;p&gt;PHP_DOCCER konstruktor meghívva!&lt;/p&gt;&quot;;&lt;br/&gt;&lt;/code&gt;
+            </div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>createDocs()</h4></div>        <div class="doc-subFunc">
+         2016-12-10<br>
+         LEÍRÁS<br>
+         Ez a függvény afféle főfüggévny. Alapvetően soronként meghívjuk a prepareString() füvényt, és az eredményt
+         a kimeneti fileba teszük.<br>
+         Ez gyors, és könnyen érthető, de nem lehet vele beágyazottságot megjeleníteni. Vagyis a kimenetben a 
+         HTML elemek egymást követik, és nem tudják egymást tartalmazni.
+         PARAMÉTEREK:
+        <ul class="doc-list">
+        <li>- Nincsenek paraméeterek </li>
+        </ul>
+        MÓDOSTÁSOK:
+        <ul class="doc-list">
+        <li>- ... </li>
+        </ul>
+        </div>
+            <div class="doc-normNote">
+             Meg kell nézni, hogy miylen route jött be...
+            </div>
+                    <div class="doc-debug">
+                     A nyers HTML kód kiírásához:<br>
+                    <code>
+                     echo &quot;&lt;p&gt;DOC:&quot; . htmlspecialchars($resultStr) .&quot;&lt;/p&gt;&quot;;&lt;br/&gt;
+                    </code>
+                    </div>
+                	<div class="doc-normNote">
+                	 Itt kiszedhetjük az osztály nevét.
+                	</div>
+                	<div class="doc-normNote">
+                	 Itt kiszedhetjük a függvény nevét, és paramétereit... de talán ezzel nem is kellene
+                	 tökölni, elég lenne, ha egyszerűen 
+                	</div>
+                	<div class="doc-debug">
+                	 leírás....<br>
+                	<code>
+                	 echo &quot;&lt;p&gt;NO-DOC:&quot; . $sor .&quot;&lt;/p&gt;&quot;;&lt;br/&gt;
+                	</code>
+                	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>setInfile($inFl)</h4></div>        <div class="doc-subFunc">
+         2016-12-10<br>
+         LEÍRÁS:<br>
+         Az osztály infile adatattagjának set-er függvénye.<br>
+         PARAMÉTEREK:
+        <ul class="doc-list">
+        <li>- @param \$inFl = a beolvasandó file neve </li>
+        </ul>
+        MÓDOSTÁSOK:
+        <ul class="doc-list">
+        <li>- ... </li>
+        </ul>
+        </div>
+            <div class="doc-debug">
+             Valami érdekesség van a filenevkkel, írassuk ki előtte, és utána is.<br>
+            <code>
+             echo "infile: " . $inFl;<br/>
+            </code>
+            </div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>setOutfile($oFl)</h4></div>        <div class="doc-subFunc">
+         Az osztály outfile adattagjának set-er függvénye.
+        </div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>prepareString($rwStr)</h4></div>        <div class="doc-subFunc">
+         Ez a függvény generálja le a HTML kódot a beolvasott sorból. Az olvasást egy másik függvény végzi, ami
+         ennek beküldi a sort ha megfelel a feltételknek.<br>
+         A függvény igazából csak soronként kicseréli a megfelelő dok-tag-eket igaz HTML elemekre. 
+        </div>
+            <div class="doc-debug">
+             A nyers HTML kód közvetlen vizsgálatához (bemenet):<br>
+            <code>
+             echo &quot;&lt;br&gt;be: &quot; . htmlspecialchars($respStr) .&quot;&lt;br&gt;&quot;;&lt;br/&gt;
+             echo &quot;&lt;br&gt;STRPOS(: &quot; . htmlspecialchars($respStr) .&quot;) = &quot; . (strpos($respStr,'&lt;div class=&quot;doc-modul&quot;&gt;')) . &quot;&lt;br&gt;&quot;;&lt;br/&gt;
+            </code>
+            </div>
+            <div class="doc-normNote">
+             MODUL elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             CLASS elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             LIST elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             LIST-ITEM (nyitó) elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             LIST-ITEM (záró) elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             FUNCTION/SUBRUTIN leíró elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             DEBUG/kód elemek kezelése
+            </div>
+            <div class="doc-normNote">
+             ALAP-MEGJEGYZÉS elemek kezelése
+            </div>
+            <div class="doc-debug">
+             A nyers HTML kód kiíratásához (kimenet):<br>
+            <code>
+             echo &quot;Ki: &quot; . htmlspecialchars($respStr) . &quot;&lt;/hr&gt;&quot;;&lt;br/&gt;
+            </code>
+            </div>

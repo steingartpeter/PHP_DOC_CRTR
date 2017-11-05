@@ -87,7 +87,6 @@
 			</div>
 		</nav>
 	</div>
-	<!-- MAIN CONTENT DIV -->
 	<div class="container" id="pgContent">
 		<div class="row">
 			<div class="col-lg-12">
@@ -118,11 +117,13 @@
 			?>
 			</div>
 		</div>
+
 	</div>
-	<!-- FOOTER DIV -->
+	
 	<div class="container" id="pgFooter">
-		<div class="row">
-			<div class="col-lg-12 footer"><p> Készítette: AX07057 &copy; </p></div>
+		<!-- FOOTER DIV -->
+		<div class="row footer">
+			<div class="col-lg-12"><p> Készítette: AX07057 &copy; </p></div>
 		</div>
 	</div>
 </body>

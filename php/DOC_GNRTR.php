@@ -7,17 +7,18 @@
 //@-FÜGGŐSÉGEK:
 //×-
 // @-- nincs függőség-@
-//-@
 //-×
 //-@
 //@-LEÍRÁS    :
 // Ez a PHP kód a PHP_DOCCER class implementációját tartalmazza.
+//-@
 //@-MÓDOSÍTÁSOK :
 //×-
 // @-- 2017-08-20 <br>
 // Megpróbálok full git supportot behozni az Eclipse-be.
 //-@
 //-×
+//-@
 //-×
 //</M>	
 
@@ -53,7 +54,7 @@
         //<SF>
         // 2016-10-30<br>
         // A konstruktor...
-        //<SF>
+        //</SF>
             
             //<nn>
             // Az alapértelemezett file mappák elérésének beállítása.
@@ -64,7 +65,7 @@
             //<nn>
             // Beállítjuk a bemeneti file-t a beérkező vagy be nem érkező
             // paraméter szerint.<br>
-            // Az lapértelmezett érték: tstFile.php.
+            // Az alapértelmezett érték: tstFile.php.
             //</nn>
             if($if !== ""){
                 $this->inFile = $if;
@@ -113,7 +114,7 @@
         // @-- ... -@
         //-×
         //</SF>
-            echo "<p>createDocs() indul...</p>";
+            
             //<nn>
             // Meg kell nézni, hogy miylen route jött be...
             //</nn>
@@ -133,8 +134,7 @@
            		$of = fopen($this->stdPathOut.$fnm,"w") or
            		die("<p>A kimenetifile(".$this->stdPathOut.$fnm.")megnyitása sikertelen!</p>");
            	}
-            
-            echo "<pre>";
+            $resultStr = '';
             while(($sor = fgets($fi,1024)) !== false){
                 if(substr(trim($sor), 0,2) == "//"){
                     $resultStr = $this->prepareString($sor);
@@ -146,6 +146,17 @@
                     //</DEBUG>
                     
                     fwrite($of,$resultStr);
+                }elseif(substr(trim($sor), 0,5) == "class"){
+                	//<nn>
+                	// Itt kiszedhetjük az osztály nevét.
+                	//</nn>
+                	
+                	$kzd = strpos($sor, "class") + 5;
+                	$veg = strpos($sor, "{") + 1;
+                	$clsNev = substr($sor,$kzd,($veg-$kzd-1));
+                	$resultStr .= '<div class="doc-classNm"><h2>'.$clsNev.'</h2></div>';
+                	fwrite($of, $resultStr);
+                	
                 }elseif(substr(trim($sor), 0,15) == "public function" || 
                 	substr(trim($sor), 0,16) == "private function" ||
                 	substr(trim($sor), 0,8) == "function"){
@@ -156,19 +167,19 @@
                 	$kzd = strpos($sor, "tion ") + 5;
                 	$veg = strpos($sor, "){") + 2;
                 	$fnNev = substr($sor,$kzd,($veg-$kzd-1));
-                	if($this->funcSzlo > 0){
-                		$resultStr = '</div><div class="doc-body"><h4>'.$fnNev.'</h4>';
-                	}else{
-                		$resultStr = '<div class="doc-body"><h4>'.$fnNev.'</h4>';
-                	}
+                	$resultStr .= '<hr class="hr-fnc-sep"/><div class="doc-body"><h4>'.$fnNev.'</h4></div>';
                 	fwrite($of, $resultStr);
                 }else{
-                    //echo "<p>NO-DOC:" . $sor ."</p>";
+                	//<DEBUG>
+                	// leírás....<br>
+                	//<code>
+                	// echo "<p>NO-DOC:" . $sor ."</p>";
+                	//</code>
+                	//</DEBUG>
                 }
-                
+                $resultStr = '';
             }
-            fwrite($of,"</div>");
-            echo "</pre>";
+            
             fclose($fi);
             fclose($of);
         }
@@ -190,7 +201,7 @@
             //<DEBUG>
             // Valami érdekesség van a filenevkkel, írassuk ki előtte, és utána is.<br>
             //<code>
-            // ...
+            // echo "infile: " . $inFl;
             //</code>
             //</DEBUG>
             $this->inFile = $inFl;
@@ -205,7 +216,9 @@
              
         private function prepareString($rwStr){
         //<SF>
-        // 
+        // Ez a függvény generálja le a HTML kódot a beolvasott sorból. Az olvasást egy másik függvény végzi, ami
+        // ennek beküldi a sort ha megfelel a feltételknek.<br>
+        // A függvény igazából csak soronként kicseréli a megfelelő dok-tag-eket igaz HTML elemekre. 
         //</SF>
             $respStr = $rwStr;
             //<DEBUG>
@@ -216,62 +229,63 @@
             //</code>
             //</DEBUG>
             
+            //<nn>
+            // MODUL elemek kezelése
+            //</nn>
             $respStr = str_replace('//<M>','<div class="doc-modul">',$respStr);
             $respStr = str_replace('//</M>','</div>',$respStr);
             
+            //<nn>
+            // CLASS elemek kezelése
+            //</nn>
+            $respStr = str_replace('//<CLS>','<div class="doc-class">',$respStr);
+            $respStr = str_replace('//</CLS>','</div>',$respStr);
+            
+            //<nn>
+            // LIST elemek kezelése
+            //</nn>
             $respStr = str_replace('//×-','<ul class="doc-list">',$respStr);
             $respStr = str_replace('//-×','</ul>',$respStr);
             
+            //<nn>
+            // LIST-ITEM (nyitó) elemek kezelése
+            //</nn>
             $respStr = str_replace('//@-','<li>',$respStr);
             $respStr = str_replace('// @-','<li>',$respStr);
             
+            //<nn>
+            // LIST-ITEM (záró) elemek kezelése
+            //</nn>
             $respStr = str_replace('// -@','</li>',$respStr);
             $respStr = str_replace('//-@','</li>',$respStr);
             $respStr = str_replace('-@','</li>',$respStr);
             
+            //<nn>
+            // FUNCTION/SUBRUTIN leíró elemek kezelése
+            //</nn>
             $respStr = str_replace('//<SF>','<div class="doc-subFunc">',$respStr);
             $respStr = str_replace('//</SF>','</div>',$respStr);
             
+            //<nn>
+            // DEBUG/kód elemek kezelése
+            //</nn>
             $respStr = str_replace('//<DEBUG>','<div class="doc-debug">',$respStr);
             $respStr = str_replace(';',';<br/>',$respStr);
-            $respStr = str_replace('//</DEBUG>','</div">',$respStr);
+            $respStr = str_replace('//</DEBUG>','</div>',$respStr);
             
+            //<nn>
+            // ALAP-MEGJEGYZÉS elemek kezelése
+            //</nn>
             $respStr = str_replace('//<nn>','<div class="doc-normNote">',$respStr);
             $respStr = str_replace('//</nn>','</div>',$respStr);
+            
+            if(strpos($respStr,'"<')){
+            	$respStr = htmlspecialchars($respStr);
+            }
             
             
             $respStr = str_replace('//','',$respStr);
             
-            
-            
-            /*
-            if(strpos($respStr,'//<M>') >= 0){
-                $respStr = str_replace('//<M>','<div class="doc-modul">',$respStr);
-            }elseif(strpos('//</M>',$respStr)){
-                $respStr = str_replace('//</M>','</div>',$respStr);
-            }elseif(strpos('//<SF>',$respStr)){
-                $respStr = str_replace('//<SF>','<div class="doc-subFunc">',$respStr);
-            }elseif(strpos('//</SF>',$respStr)){
-                $respStr = str_replace('//</SF>','</div>',$respStr);
-            }elseif(strpos('//<nn>',$respStr)){
-                $respStr = str_replace('//<nn>','<div class="doc-normNote">',$respStr);
-            }elseif(strpos('//</nn>',$respStr)){
-                $respStr = str_replace('//</nn>','</div>',$respStr);
-            }elseif(strpos('//<DEBUG>',$respStr)){
-                $respStr = str_replace('//<DEBUG>','<div class="doc-debug">',$respStr);
-            }elseif(strpos('//</DEBUG>',$respStr)){
-                $respStr = str_replace('//</DEBUG>','</div>',$respStr);
-            }elseif(strpos('//×-',$respStr)){
-                $respStr = str_replace('//×-','<ul class="doc-list">',$respStr);
-            }elseif(strpos('//-×',$respStr)){
-                $respStr = str_replace('//-×','</ul>',$respStr);
-            }elseif(strpos('//@-',$respStr)){
-                $respStr = str_replace('//@-','<li>',$respStr);
-            }elseif(strpos('-@',$respStr)){
-                $respStr = str_replace('-@','</li>',$respStr);
-            }else{
-                echo "Semmifelé strpos nem működött!<br>";
-            }*/
             //<DEBUG>
             // A nyers HTML kód kiíratásához (kimenet):<br>
             //<code>
@@ -284,13 +298,18 @@
         }
     
     
-    
-    
-    
     }
-    
-        
-    
-    
-    
+
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
