@@ -25,9 +25,9 @@
         //<DEBUG>
         // leírás....<br>
         //<code>
-        // echo "\$_POST[]:<br><pre>";
-        // print_r($_POST);
-        // echo "</pre><hr>";
+         echo "\$_POST[]:<br><pre>";
+         print_r($_POST);
+         echo "</pre><hr>";
         //</code>
         //</DEBUG>
     	
@@ -74,12 +74,16 @@
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">PHP Dokumnetálás</a>
+					<a class="navbar-brand" href="/PHP_DOC_CRTR/index.php">PHP Dokumnetálás</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#"><span class="glyphicon glyphicon-th-large"></span> Kezdőlap </a></li>
-					<li><a href="html/expl.php"><span class="glyphicon glyphicon-info-sign"></span> Leírás</a></li>
+					<li><a href="/PHP_DOC_CRTR/html/expl.php"><span class="glyphicon glyphicon-info-sign"></span> Leírás</a></li>
 				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Regisztrálás</a></li>
+					<li><a href="/PHP_DOC_CRTR/html/FirstTestDocFile.html"><span class="glyphicon glyphicon-check"></span> Első tesztlap</a></li>
+			    </ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Regisztrálás</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Belépés </a></li>
@@ -87,6 +91,7 @@
 			</div>
 		</nav>
 	</div>
+	<!-- PAGE CONTENT -->
 	<div class="container" id="pgContent">
 		<div class="row">
 			<div class="col-lg-12">
@@ -105,14 +110,17 @@
 					<div class="form-group">
 						<h3>File tipus kiválasztása</h3>
 						 <div class="radio-inline">
-						 	<label><input type="radio" name="optradio">PHP</label>
+						 	<label><input type="radio" name="optradio" value="php" checked>PHP</label>
 						</div>
 						<div class="radio-inline">
-							<label><input type="radio" name="optradio">Excel-VBA</label>
+							<label><input type="radio" name="optradio" value="vba">Excel-VBA</label>
 						</div>
-						<div class="radio-inline disabled">
-						  	<label><input type="radio" name="optradio" disabled>JavaScript</label>
-						</div> 
+						<div class="radio-inline">
+						  	<label><input type="radio" name="optradio" value="js">JavaScript</label>
+						</div>
+						<div class="radio-inline">
+						  	<label><input type="radio" name="optradio" value="html" disabled><span class="disabled-opt">HTML</span></label>
+						</div>  
 					</div>
 					</hr>
 					<div class="from-group">

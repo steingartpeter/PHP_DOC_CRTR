@@ -25,6 +25,7 @@ div#pgContent{
 	min-height:300px;
 	border:1px #050505 dotted;
 	box-shadow:5px 5px 8px #050505;
+	border-radius:5px;
 }
 button#btnSbmt{
 	margin-top:20px;
@@ -66,8 +67,27 @@ img.baseImg:hover{
 		50%,#000000 51%,#111111 60%,#2B2B2B 76%,#1C1C1C 91%,#131313 100%);
 	color:#CDCDCD;
 	font-style: italic;
+	padding-top:12px;
+	box-shadow:4px 4px 12px #5A5A5A;
 }
-
+.col-lg-12{
+	padding-bottom:12px;
+}
+.disabled-opt{
+	color:#FF1515;
+	background-color:#FFCCCC;
+	font-style: italic;
+	font-weight: lighter;
+}
+.btn-info{
+	box-shadow:3px 3px 9px #2496B8;
+	border-bottom:1px solid #CDCDEE;
+	border-right:1px solid #CDCDEE;
+}
+.btn-info:hover{
+	color: #1313FF;
+	font-style: italic;
+}
 
 
 code{

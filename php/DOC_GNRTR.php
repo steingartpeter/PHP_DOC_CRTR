@@ -179,7 +179,7 @@
                 }
                 $resultStr = '';
             }
-            
+            fwrite($of, '<hr class="hr-fnc-sep"/>');
             fclose($fi);
             fclose($of);
         }
