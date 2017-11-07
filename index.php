@@ -102,6 +102,19 @@
 						<label for="outfile">Kimeneti file:</label>
 						<input type="file" id="outfile" name="outfile">
 					</div>
+					<div class="form-group">
+						<h3>File tipus kiválasztása</h3>
+						 <div class="radio-inline">
+						 	<label><input type="radio" name="optradio">PHP</label>
+						</div>
+						<div class="radio-inline">
+							<label><input type="radio" name="optradio">Excel-VBA</label>
+						</div>
+						<div class="radio-inline disabled">
+						  	<label><input type="radio" name="optradio" disabled>JavaScript</label>
+						</div> 
+					</div>
+					</hr>
 					<div class="from-group">
 						<button type="submit" id="btnSbmt" class="btn btn-info">Dokumetáció elkészítése</button>
 					</div>

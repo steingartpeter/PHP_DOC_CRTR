@@ -23,7 +23,7 @@
 <div class="doc-classNm"><h2> PHP_DOCCER</h2></div>    <div class="doc-subFunc">
      2016. dec. 11.<br>
      LEÍRÁS<br>
-     Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.
+     Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.<br/>
     MÓDOSTÁSOK:
     <ul class="doc-list">
     <li>- ... </li>
@@ -53,7 +53,7 @@
                 <div class="doc-debug">
                  Írassuk ki a figyelmeztetést, hogy nincs INFILE.<br>
                 <code>
-                 echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";<br/>
+                 echo &quot;&lt;p&gt;NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!&lt;/p&gt;&quot;;&lt;br/&gt;
                 </code>
                 </div>
             <div class="doc-normNote">
@@ -63,7 +63,9 @@
             </div>
             <div class="doc-debug">
              A konstruktor lefutásának jelzése:<br>
-             &lt;code&gt;echo &quot;&lt;p&gt;PHP_DOCCER konstruktor meghívva!&lt;/p&gt;&quot;;&lt;br/&gt;&lt;/code&gt;
+             <code>
+			 echo &quot;&lt;p&gt;PHP_DOCCER konstruktor meghívva!&lt;/p&gt;&quot;;&lt;br/&gt;
+			 </code>
             </div>
 <hr class="hr-fnc-sep"/><div class="doc-body"><h4>createDocs()</h4></div>        <div class="doc-subFunc">
          2016-12-10<br>

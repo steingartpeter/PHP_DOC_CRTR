@@ -27,7 +27,7 @@
     //<SF>
     // 2016. dec. 11.<br>
     // LEÍRÁS<br>
-    // Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.
+    // Ez az osztály tartalmazza a dokumnetációk előállításához szükséges kódot.<br/>
     //MÓDOSTÁSOK:
     //×-
     // @-- ... -@
@@ -73,7 +73,7 @@
                 //<DEBUG>
                 // Írassuk ki a figyelmeztetést, hogy nincs INFILE.<br>
                 //<code>
-                // echo "NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!<br>";
+                // echo "<p>NINCS INFILE, STANDRDOT HASZNÁLJUK!!!!!!</p>";
                 //</code>
                 //</DEBUG>
             	
@@ -93,7 +93,9 @@
             
             //<DEBUG>
             // A konstruktor lefutásának jelzése:<br>
-            // <code>echo "<p>PHP_DOCCER konstruktor meghívva!</p>";</code>
+            // <code>
+			// echo "<p>PHP_DOCCER konstruktor meghívva!</p>";
+			// </code>
             //</DEBUG>
         }
         
