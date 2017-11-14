@@ -33,6 +33,7 @@
     	
         $doccer = new PHP_DOCCER();
         $doccer->setInfile($_POST['infile']);
+        $doccer->setFileType($_POST['optradio']);
         if(isset($_POST['outfile']) && $_POST['outfile']<>''){
             $doccer->setOutFile($_POST['outfile']);
         }
