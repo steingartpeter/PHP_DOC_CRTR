@@ -79,9 +79,6 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#"><span class="glyphicon glyphicon-th-large"></span> Kezdőlap </a></li>
 					<li><a href="/PHP_DOC_CRTR/html/expl.php"><span class="glyphicon glyphicon-info-sign"></span> Leírás</a></li>
-				</ul>
-				<ul class="nav navbar-nav">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Regisztrálás</a></li>
 					<li><a href="/PHP_DOC_CRTR/html/FirstTestDocFile.html"><span class="glyphicon glyphicon-check"></span> Első tesztlap</a></li>
 			    </ul>
 				<ul class="nav navbar-nav navbar-right">
