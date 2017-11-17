@@ -48,9 +48,10 @@
         private $inFile = "";
         private $outFile = "";
         private $funcSzlo = 0;
+        private $fileType = "";
         
         
-        public function __construct($if="", $of=""){
+        public function __construct($if="", $of="", $ftp=""){
         //<SF>
         // 2016-10-30<br>
         // A konstruktor...
@@ -61,7 +62,7 @@
             //</nn>
             $this->stdPathIn = $_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/inputfiles/";
             $this->stdPathOut = $_SERVER['DOCUMENT_ROOT']."/PHP_DOC_CRTR/outputfiles/";
-            
+            $this->fileType = "php";
             //<nn>
             // Beállítjuk a bemeneti file-t a beérkező vagy be nem érkező
             // paraméter szerint.<br>
@@ -95,6 +96,16 @@
             // A konstruktor lefutásának jelzése:<br>
             // <code>echo "<p>PHP_DOCCER konstruktor meghívva!</p>";</code>
             //</DEBUG>
+            
+            //<nn>
+            // Ha jött volna be file tipus paraméterként, akkor azt használjuk. 
+            //</nn>
+            if ($ftp !== "") {
+                $this->fileType = $ftp;
+            }else{
+                $this->fileType = "php";
+            }
+            
         }
         
         public function createDocs(){
@@ -116,7 +127,7 @@
         //</SF>
             
             //<nn>
-            // Meg kell nézni, hogy miylen route jött be...
+            // Meg kell nézni, hogy milyen route jött be...
             //</nn>
             if(!strpos($this->inFile,"htdocs")){
             	$fi = fopen($this->stdPathIn.$this->inFile,"r") or 
@@ -136,50 +147,59 @@
            	}
             $resultStr = '';
             while(($sor = fgets($fi,1024)) !== false){
-                if(substr(trim($sor), 0,2) == "//"){
-                    $resultStr = $this->prepareString($sor);
-                    //<DEBUG>
-                    // A nyers HTML kód kiírásához:<br>
-                    //<code>
-                    // echo "<p>DOC:" . htmlspecialchars($resultStr) ."</p>";
-                    //</code>
-                    //</DEBUG>
-                    
-                    fwrite($of,$resultStr);
-                }elseif(substr(trim($sor), 0,5) == "class"){
-                	//<nn>
-                	// Itt kiszedhetjük az osztály nevét.
-                	//</nn>
-                	
-                	$kzd = strpos($sor, "class") + 5;
-                	$veg = strpos($sor, "{") + 1;
-                	$clsNev = substr($sor,$kzd,($veg-$kzd-1));
-                	$resultStr .= '<div class="doc-classNm"><h2>'.$clsNev.'</h2></div>';
-                	fwrite($of, $resultStr);
-                	
-                }elseif(substr(trim($sor), 0,15) == "public function" || 
-                	substr(trim($sor), 0,16) == "private function" ||
-                	substr(trim($sor), 0,8) == "function"){
-                	//<nn>
-                	// Itt kiszedhetjük a függvény nevét, és paramétereit... de talán ezzel nem is kellene
-                	// tökölni, elég lenne, ha egyszerűen 
-                	//</nn>
-                	$kzd = strpos($sor, "tion ") + 5;
-                	$veg = strpos($sor, "){") + 2;
-                	$fnNev = substr($sor,$kzd,($veg-$kzd-1));
-                	$resultStr .= '<hr class="hr-fnc-sep"/><div class="doc-body"><h4>'.$fnNev.'</h4></div>';
-                	fwrite($of, $resultStr);
+                if($this->fileType == "php" || $this->fileType == "js"){
+                    if(substr(trim($sor), 0,2) == "//"){
+                        $resultStr = $this->prepareString($sor);
+                        //<DEBUG>
+                        // A nyers HTML kód kiírásához:<br>
+                        //<code>
+                        // echo "<p>DOC:" . htmlspecialchars($resultStr) ."</p>";
+                        //</code>
+                        //</DEBUG>
+                        
+                        fwrite($of,$resultStr);
+                    }elseif(substr(trim($sor), 0,5) == "class"){
+                    	//<nn>
+                    	// Itt kiszedhetjük az osztály nevét.
+                    	//</nn>
+                    	
+                    	$kzd = strpos($sor, "class") + 5;
+                    	$veg = strpos($sor, "{") + 1;
+                    	$clsNev = substr($sor,$kzd,($veg-$kzd-1));
+                    	$resultStr .= '<div class="doc-classNm"><h2>'.$clsNev.'</h2></div>';
+                    	fwrite($of, $resultStr);
+                    	
+                    }elseif(substr(trim($sor), 0,15) == "public function" || 
+                    	substr(trim($sor), 0,16) == "private function" ||
+                    	substr(trim($sor), 0,8) == "function"){
+                    	//<nn>
+                    	// Itt kiszedhetjük a függvény nevét, és paramétereit... de talán ezzel nem is kellene
+                    	// tökölni, elég lenne, ha egyszerűen 
+                    	//</nn>
+                    	$kzd = strpos($sor, "tion ") + 5;
+                    	$veg = strpos($sor, "){") + 2;
+                    	$fnNev = substr($sor,$kzd,($veg-$kzd-1));
+                    	$resultStr .= '<hr class="hr-fnc-sep"/><div class="doc-body"><h4>'.$fnNev.'</h4></div>';
+                    	fwrite($of, $resultStr);
+                    }else{
+                    	//<DEBUG>
+                    	// leírás....<br>
+                    	//<code>
+                    	// echo "<p>NO-DOC:" . $sor ."</p>";
+                    	//</code>
+                    	//</DEBUG>
+                    }
+                    $resultStr = '';
+                }elseif($this->fileType == "vba"){
+                    echo "<p class=\"text-danger\"><hr>A VBA dokumentálás még fejlesztés alatt...<hr></p>";
+                    break;
                 }else{
-                	//<DEBUG>
-                	// leírás....<br>
-                	//<code>
-                	// echo "<p>NO-DOC:" . $sor ."</p>";
-                	//</code>
-                	//</DEBUG>
+                    echo "<p class=\"text-danger\"><hr>Ismeretlen filetipus: " . $this->fileType . "<hr></p>";
+                    break;
                 }
-                $resultStr = '';
             }
             fwrite($of, '<hr class="hr-fnc-sep"/>');
+            
             fclose($fi);
             fclose($of);
         }
@@ -213,7 +233,23 @@
         //</SF>
             $this->outFile = $oFl;
         }
-             
+        
+        public function setFileType($fltp){
+        //<SF>
+        // 2017. nov. 14.<br>
+        // Egy apró fileType setter...<br>
+        // PARAMÉTEREK:
+        //×-
+        // @-- @param $fltp = a filetype megadása -@
+        //-×
+        //MÓDOSTÁSOK:
+        //×-
+        // @-- ... -@
+        //-×
+        //</SF>
+            $this->fileType = $fltp;
+        }
+        
         private function prepareString($rwStr){
         //<SF>
         // Ez a függvény generálja le a HTML kódot a beolvasott sorból. Az olvasást egy másik függvény végzi, ami
