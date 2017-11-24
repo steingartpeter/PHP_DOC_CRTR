@@ -1,1 +1,458 @@
+<div class="doc-modul">
+<ul class="doc-list">
+<li>FILENÉV   : HAL_WEB_DEV - readSQ01Export_HU.php</li>
+<li>SZERZŐ    : AX07057</li>
+<li>LÉTREHOZVA:  2017. aug. 17.</li>
+<li>FÜGGŐSÉGEK:
+<ul class="doc-list">
+<li>- baseCode_HAL.php</li>
+<li>- EKAER2_reqNrfromNAV.php</li>
+</ul>
+</li>
+<li>LEÍRÁS    :
+ Ez a site a kifelé menő kamionok EKAER szám kérését kezeli.<br>
+ A működéséhez egy SAP query adataira van szüksége, amit a felhasználónak le kell töltenie az SQ01
+ -es tranzakcióból.<br/><hr/>A site a letöltött file-t automatikusan beolvassa (emiatt fix helyre, és
+ fix néven kell előállítani a file-t).
+</li>
+<li>MÓDOSÍTÁSOK :
+<ul class="doc-list">
+<li>- 2017-11-23 
+<ul class="doc-list">
+<li>- refractoring </li>
+<li>- részfunciók függvényekbe foglalása </li>
+<li>- maygar kiszállítás specifikus kód elkezdése </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Megnyitjuk a SAP exportot, a részletek beolvasásához. FOPEN=>AKT_EKR_OUT.TXT
+	</div>
+	<div class="doc-normNote">
+	 Az első 7 sort átugorjuk, mert ott csak a SAP által generált fejléc van.
+	</div>
+	<div class="doc-debug">
+	 Debug leírás:
+	<code>
+	 echo &quot;&lt;p&gt;A jelenlegi sor:&lt;br&gt;&quot;;&lt;br/&gt;
+	 echo $ln .&quot;&lt;/p&gt;&quot;;&lt;br/&gt;
+	</code>
+	</div>
+	<div class="doc-normNote">
+	 Inicializáljuk a munkatömböket.
+	</div>
+	<div class="doc-normNote">
+	 Az itemeket tároló XML fileoknak létrehozunk 3 simpleXML elemet.
+	</div>
+	<div class="doc-normNote">
+	 File olvasása filevégig...
+	</div>
+		<div class="doc-normNote">
+		 Kétféle sort kezelünk:
+		<ul class="doc-list">
+		<li>- A kollikat, és cikkszámokat tartalmazó sort </li>
+		<li>- A csak cikkszámokat tartalmazó sort. </li>
+		</ul>
+		 A többi sort csak átugorjuk.
+		</div>
+		<div class="doc-normNote">
+		 Kollis header sorok kezelése.
+		</div>
+			<div class="doc-normNote">
+			 Nem csak a szállítmányszám az amire szükség van...
+			</div>
+			<div class="doc-normNote">
+			 Kell a ROUTE is.<br>
+			 A route-ot csak egyszer töltjük fel.
+			</div>
+			<div class="doc-normNote">
+			 Az országon kivüi fuvarok kezelése:
+			</div>
+				<div class="doc-normNote">
+				Ja!, meg mostantól a rendszám is, ami egy új táblában van  -> VTTK-SIGNI
+				</div>
+				<div class="doc-normNote">
+				 Létrehozzuk az aktItem XML elemet a megfelelő item tömbbe.
+				</div>
+				<div class="doc-normNote">
+				 A get_PKG_WIGHT függvény segítségével a csomagoló anyag nevének függvényében(aktrec[4]) megadjuk annak súlyát grammban.
+				</div>
+				<div class="doc-normNote">
+				 A LOOSE itemeket, és a VIRTUAL-okat eldobjuk!<br>
+				 A maradékot pedig a csak egyszer tesszük be a tömbbe, annak köszönhetően,
+				 hogy az in_array, és array_column függvényekkel megnézzük, hogy az internal HU ID
+				 értéke (array[4]) benne van-e már a gyűjteményben.<br>
+				</div>
+			<div class="doc-normNote">
+			 Az országon belüli fuvarok kezelése.<br>
+			 Pillanatnyilag dolgozunk rajta...
+			</div>
+		<div class="doc-normNote">
+		 Kolli nélküli, sima tételsorok kezelése.
+		</div>
+				<div class="doc-normNote">
+				 Az országon kivüi fuvarok kezelése:
+				</div>
+			<div class="doc-normNote">
+			 Az országon belüli fuvarok kezelése.<br>
+			 Pillanatnyilag dolgozunk rajta...
+			</div>
+	<div class="doc-normNote">
+	 A súlyértékek kiszámítása, összegzése a tömbök alapján, plantonként.<br>
+	 Külön árukra, és gonygölegekre.
+	</div>
+	<div class="doc-debug">
+	 Debug leírás:<br>
+	 Itt kiirathatjuk a tömböket, hogy lássuk, minden benne van-e:
+	<code>
+	 writeRawArrayData($wghtArr,$valArr);<br/>
+	</code>
+	</div>
+	<div class="doc-normNote">
+	 A göngyölegtételt hozzáadjuk a tételek sorához, hogy azok is megjelenjenek az EKAER kérő XML-ben.
+	</div>
+	<div class="doc-normNote">
+	 Kiíratjuk egy HTML táblában az eredményt.
+	</div>
+	<div class="doc-normNote">
+	 Lezárjuk az oldal kódját.
+	</div>	
+	<div class="doc-normNote">
+	 Az itemek xml filejai fel vannak töltve, kiírjuk őket:
+	</div>
+	<div class="doc-normNote">
+	 Az oldal standard alsó részének legenerálása.
+	</div>
+<div class="doc-normNote">
+ PHP kód a részfeleadtok megvalósításához.<br><hr>
+ A következő PHP szakaszban a szükséges (rész) funkciókat egy-egy függvénybe foglalom, hogy átláthatóbb legyen a kód.
+</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>createSiteHTMLUpper()</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Az oldal HTML kódjának felső részét legeneráló alfüggvény.<br>
+ Erre azért volt szükség, hogy valamilyen módon átláthatóbbá tegyem a felső rész funkcionális kódját.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- NINCSENEK paraméterek </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Legeneráljuk, majd visszaadjuk az oldal kódját.
+	</div>
+	<div class="doc-normNote">
+	 A rendezett HTML sztringet visszaadjuk, megjelenítésre.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>get_PKG_WIGHT($pkgNm)</h4></div><div class="doc-subFunc">
+ 2017. nov. 23.<br>
+ LEÍRÁS<br>
+ A csomagolóanyagok súlyát kikereső függvényt külön implementáltam.<br>
+ A végelges helyének jobb lenne mondjuk a BASE_HAL.php file.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $pkgNm = a csonmagoló anyag megnevezése aminek a súlyát keressük </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Egy hosszú SWITCH szerkezettel kiválasztjuk, hogy melyik csomagolóaynag súly a megfelelő.<br>
+	 Fontos, hogy új csomagolóanyagok megjelenésével, vagy a meglévők súlyaának változásval, az itteni
+	 kód karbantartása szükséges lesz!
+	</div>
+	<div class="doc-normNote">
+	 Ha megvan a súly, csak vissaz kell adni a hívónak.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>getFRENDSZ($f,&$frsz,&$frszek,&$frszOrsz)</h4></div><div class="doc-subFunc">
+ 2017. nov. 23.<br>
+ A rendszám megállapítása, ha lehetséges...<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $f = a nyers rendszámsztring, amit trimmelünk. </li>
+<li>- @param &$frsz = egy referencia a hivókörnyezet rendszámváltozójára, hogy itt átírhassuk azt. </li>
+<li>- @param &$frszek =  egy referencia a hivókörnyezet rendszám tömbjére, hogy itt belepakolhassunk. </li>
+<li>- @param &$frszOrsz = egy referencia a rendszám-ország változójár, hogy helyben írhassuk renszám . </li>
+<li>- @param $f = a nyers rendszámsztring, amit trimmelünk. </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>	
+	<div class="doc-normNote">
+	 Akor próbáljuk kitalálni a két rendszámot...
+	</div>
+		<div class="doc-normNote">
+		 Ha megtaláltuk a pótkocsi, és a vontatókocsi rendszámát
+		 elválasztó karaktert, akkor explodozzuk a cuccot
+		</div>
+		<div class="doc-normNote">
+		 Kigyomláljuk a lehetséges felesleges karaktereket
+		</div>
+		<div class="doc-normNote">
+		 Itt kezdődnek a gondok...
+		 Az egy, és két SPACE-es estet kezeljük, de ha hármat tesz majd a plgár bele,
+		 akkor gáz lesz, mert a tömb nem 2 hanem 3 elemű lesz
+		</div>
+		<div class="doc-normNote">
+		 A furcs eset amikor csak egy rendszám van, többnyire ez az AT-MUL/DIR
+		 reggeli kocsi.
+		</div>
+	<div class="doc-normNote">
+	 Akkor próbáljuk kitalálni az országot is.<br>
+	 Pár regulásris kifejezéssel opreálva teszünk erre kiísérletet.
+	<ul class="doc-list">
+	<li>- 1 szám+2 betű+4 szám = CZ </li>
+	<li>- 3 betű+3 szám = H </li>
+	<li>- 2 betű+3szám+2betű = SK </li>
+	</ul>
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>createAktItem($aktRec,&$valArr,$itmsHU01,$itmsNI01,$itmsRE85)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Az aktuális tétel XML elem összeállítása.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $plnt = plant: HU01/NI01/RE85 </li>
+<li>- @param $pnr = cikkszám (aktRec[6]) </li>
+<li>- @param &$valArr = referencia az értéktömbre </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-debug">
+	 Az aktuális sorból készült tömb megnézése:
+	<code>
+	 echo &quot;&lt;p&gt;&lt;pre&gt;&quot;;&lt;br/&gt;
+	 print_r($aktRec);<br/>
+	 echo &quot;&lt;/pre&gt;&lt;/p&gt;&quot;;&lt;br/&gt;
+	</code>
+	</div>
+	<div class="doc-normNote">
+	 A planttól függően (ami az aktRec 3. eleme) a megfelelő érték tömb elemet megnöveljük.
+	</div>
+		<div class="doc-normNote">
+		 Létrehozzuk egy új XML elementet az aktuális itemnek, és az elemeit feltöltjük a tömbből.
+		</div>
+		<div class="doc-normNote">
+		Ha magyar nevket töltünk le, akkor az utf8_encode elrontja a stringet
+		 $pNm = $aktItm->addChild("productName", utf8_encode($pNmStr));<br/>
+		</div>
+		<div class="doc-normNote">
+		 Létrehozzuk egy új XML elementet az aktuális itemnek, és az elemeit feltöltjük a tömbből.
+		</div>
+		<div class="doc-normNote">
+		Ha magyar nevket töltünk le, akkor az utf8_encode elrontja a stringet
+		 $pNm = $aktItm->addChild("productName", utf8_encode($pNmStr));<br/>
+		</div>
+		<div class="doc-normNote">
+		 Létrehozzuk egy új XML elementet az aktuális itemnek, és az elemeit feltöltjük a tömbből.
+		</div>
+		<div class="doc-normNote">
+		 Nem tudom ez miért van de itt meg KELL az utf8_encode...
+		</div>
+		<div class="doc-debug">
+		 Ha akrjuk a problémás VTSZ-eket itt kicserélhatjük egy általánosra!:
+		<code>
+		 $vtsz = substr(trim($aktRec[8]),0,4);<br/>
+		 if($vtsz == "3403" || $vtsz == "3811" || $vtsz == "3824"){
+		 	$pVtsz = $aktItm->addChild("productVtsz", "8707");<br/>
+		 }else{
+		 	$pVtsz = $aktItm->addChild("productVtsz", substr(trim($aktRec[8]),0,4));<br/>
+		 }
+		</code>
+		</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>fillWghtArray($gngylg,$ttlek)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ A göngyöleg, és áru súly-tömbök feltöltése.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $gngylg = a göngyölegsúlyokat tartalmazó munkatömb </li>
+<li>- @param $ttlek = a tételek súlyait tartalmazó munkatömb </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Itt egy rendezőfüggvényt definiálunk két tömbelemre, ami majd az usort függvénynek segít a
+	 tömböt rendezni.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>cmpr($a,$b)</h4></div>	<div class="doc-normNote">
+	 A wghtArr tömbüket kibővítjük, áru, és gönygölegsúlyokra, plantonként.<br>
+	 A biztonság kedvéért meghagyunk egy plusz tipus az ismeretlen/hiányzó platoknak.
+	</div>
+	<div class="doc-normNote">
+	 A tömb egyes elemeit (göngy./áru, HU01/NI01/RE85 feltöltjük a gngylg, és ttlek tömbökből.<br>
+	 For ciklussal járjuk be a forrástömböket és számmá alakítva beszúrjuk az adatokat a céltömbökbe.
+	</div>
+	<div class="doc-normNote">
+	 A feltöltött wghtArr tömböt visszadjuk a hívó környezetnek.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>addPKGWghtItem($itmsRE85,$itmsNI01,$itmsHU01,$wghtArr)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Ebben a függvényben minden plant tételeihez adunk egy göngyöleg tételt, arra az esetre, hogy ekerüljük azt a 
+ problémát, hogy nincs feltöltve az előre beállított göngyöleg item, mert mondjuk egy extra kocsin csak loose item van.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $itmsRE85 = a RE85 planthoz tartozó tételek tömbje </li>
+<li>- @param $itmsNI01 = a NI01 planthoz tartozó tételek tömbje </li>
+<li>- @param $itmsHU01 = a HU01 planthoz tartozó tételek tömbje </li>
+<li>- @param $wghtArr = a súlyok tömbje </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>	
+	<div class="doc-normNote">
+	 A RE85 göngyölegtétel hozzáadása...
+	</div>
+	<div class="doc-normNote">
+	 A NI01 göngyölegtétel hozzáadása...
+	</div>
+	<div class="doc-normNote">
+	 A HU01 göngyölegtétel hozzáadása...
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>writeResultToSite($szallSzam,$route,$wghtArr,$valArr,$frsz,$frszek,$frszOrsz)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Ez a függvény a beolvasott file feldolgozása után egy HTML tálát állít össze, 
+ majd annak a kódját a lapba szúrja.<br>
+ Ez a kód vizsgálja meg, hogy szükséges-e EKAER számot kérni, és FROM elemeit eszerint alakítja ki.<br>
+<ul class="doc-list">
+<li>- Amennyiben nem kell EKAER szám, egy egy feliratot jelenit meg az utolsó táblacellában, ami erről tárjékoztatja a felhasználót </li>
+<li>- Amennyiben kell EKAER szám, egy gomb jelenik meg, ami a FROM submitja lesz, és egy másik sitera viszi a felhasználót </li>
+</ul>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $szallSzam = SAP shipment number </li>
+<li>- @param $route = SAP route code </li>
+<li>- @param $wghtArr = A súlyokat tartalmazó tömb </li>
+<li>- @param $valArr = Az értékeket (Ft) tartalmazó tömb </li>
+<li>- @param $frsz = A rendszám, ha egy van </li>
+<li>- @param $frszek = A rendszámok tömbje, ha több van </li>
+<li>- @param $frszOrsz = A rendszám felségjelzése </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 EKAER szám kérésének szükségességét jelző bool flag.
+	</div>
+	<div class="doc-normNote">
+	 Elkezdjük összeállítani a html table-t, ami egy fomr lesz valójában.
+	</div>
+	<div class="doc-normNote">
+	 Megvizsgáljuk (PLANT-onként), hogy a teljes súly meghaladja-e az EKAER köteles mértéket (2500 KG).<br>
+	<ul class="doc-list">
+	<li>- Ha igen, akkor a súly mezőnek &quotproblem&quot;<br/> css class-t adunk, és a jelző flag-et beállítjuk TRUE-ra </li>
+	<li>- ha nem, csak egy sima td-t adunk a HTML kódhoz. </li>
+	<li>- item text 03 </li>
+	<li>- ... </li>
+	</ul>
+	</div>
+	<div class="doc-normNote">
+	 Megvizsgáljuk, hogy az érték nem túl nagy-e - > 5 000 000 Ft<br>
+	<ul class="doc-list">
+	<li>- ha igen, akkor a $kell_e_szam flaget TRUE-ra állítjuk + problem CSS class. </li>
+	<li>- ha nem, akkor csak kírunk normál mezőbe. </li>
+	</ul>
+	</div>
+	<div class="doc-normNote">
+	 A HTML kódhoz adjuk a rendszám adatait.
+	</div>
+	<div class="doc-normNote">
+	 Egy IF szerkezetben megvizsgáljuk, hogy van e olyan plant ahol EKAER köteles a súly, vagy az érték.<br>
+	</div>
+		<div class="doc-normNote">
+		 Ha kell EKAER szám, akkor az url-be bele kell tenni a:
+		<ul class="doc-list">
+		<li>- SZÁLLTMÁNYSZÁMOT - a tétlek XMLhez </li>
+		<li>- A RUOTE-ot: a header XMLhez </li>
+		<li>- A PLANT-OT mindkettőhöz </li>
+		<li>- És sajnos úgy tűnik a rendszámot is ... </li>
+		</ul>
+		 Ezután az utolsó cellába egy input submit elem kerül, és a form ACTION eleme gondoskodik arról, 
+		 hogy a submit megfelelő sitera mutasson, ahol kezeljük magát a távoli kérést az NAV felé.
+		</div>
+		<div class="doc-debug">
+		Az eredeti URL-es megoldás helyet egy másik site-os POST + SUBMIT lett a vége.
+		<code>
+		$url = "/HAL_WEB_DEV/subpages/RAKTAR/EKAER/EKAER2_reqNrfromNAV.php";<br/>
+		$url .= "?szsz=" . trim($szallSzam) . "&plnt=RE85&route=" . str_replace("-","",$route);<br/>
+		echo &quot;&lt;td&gt;&lt;a class=\&quot;btn\&quot; href=\&quot;&quot; . $url . &quot;\&quot;&gt;EKAER-szám kérés&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot;;&lt;br/&gt;
+		</code>
+		</div>
+	<div class="doc-normNote">
+	 Lezárjuk a HTML kódot tároló változót a tábla, majd a form elem lezárásaával.
+	</div>
+	<div class="doc-normNote">
+	 A hívás helyére beillesztjük a generált HTML kódot.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>writeOutItemsXML($itmsHU01,$itmsNI01,$itmsRE85)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Ez a függvény csak egyszerűen kiírja az XML fomrátumban tárolt tételadatokat egy-egy fileba.<br>
+ Később az EKAER szám kérés során (ha lesz ilyen), akkor csak a megfelelő fileból kell kiolvasni a tételeket.
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $itmsHU01 = a HU01-es plant tételei </li>
+<li>- @param $itmsNI01 = a NI01-es plant tételei </li>
+<li>- @param $itmsRE85 = a RE85-es plant tételei </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 A fileok tényleges kiírása a ->saveXML függvénnyel.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>writeRawArrayData($wghtArr,$valArr)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Egy segédfüggvény arra az esetre, ha az összesített adatokat meg szeretnénk nézni.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param $wghtArr = a súlytömb </li>
+<li>- @param $valArr = az értéktömb </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Simán elemenként kiírjuk egy-egy paragraph-ba az eredményeket ECHO-val.
+	</div>
+<hr class="hr-fnc-sep"/><div class="doc-body"><h4>debugger($stgNr)</h4></div><div class="doc-subFunc">
+ 2017. nov. 24.<br>
+ Egy debugger, ahol különböző paraméterek segítségével, stringbe írhatjuk a futási időtartamokat, 
+ majd megejeleníthetjük azokat.<br>
+ PARAMÉTEREK:
+<ul class="doc-list">
+<li>- @param ... = ... </li>
+</ul>
+MÓDOSTÁSOK:
+<ul class="doc-list">
+<li>- ... </li>
+</ul>
+</div>
+	<div class="doc-normNote">
+	 Egy IF szerkezettel a bejövő státuszjelző paraméter függvényében elvégezzük a megfelelő feladatot, üres paraméter esetén kiírjuk
+	 az eddig generált HTML kódot, amit a $debugHTML változóban tárolunk. 
+	</div>
+		<div class="doc-normNote">
+		 Futási adatok kiírása:
+		</div>
 <hr class="hr-fnc-sep"/>
