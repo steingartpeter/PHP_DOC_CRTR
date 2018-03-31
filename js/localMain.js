@@ -18,6 +18,7 @@
 //×-
 // @-- ... -@
 //-×
+//-@
 //-×
 //</M>
 
@@ -25,7 +26,6 @@ var APP_PHPDOC = APP_PHPDOC || {};
 APP_PHPDOC.ADD_ACTIVE_CLASS = a001;
 APP_PHPDOC.FILE_HANDLING = a002;
 APP_PHPDOC.closeDetails = a003;
-
 
 $("document").ready(a00);
 
